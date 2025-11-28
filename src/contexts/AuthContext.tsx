@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
 
-// User: Kullanıcının hangi bilgilerini saklayacağımızı tanımlar (id, isim, email vb.)
 interface User {
     id: number
     username: string
@@ -19,13 +18,6 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
-
-/* user: Giriş yapmış kullanıcının bilgileri (id, ad, vb.). Henüz giriş yoksa null.
-token: Sunucudan alınan güvenlik anahtarı (accessToken). Yoksa null. Varlığı giriş yapıldığını gösterir.
-login(...): Kullanıcı adı + şifre alır. Sunucuya istek atar. Başarılı olursa user ve token doldurulur. Hata olursa Promise reject olur.
-logout(): user ve token değerlerini sıfırlar, localStorage temizlenir. Uygulama artık “girişsiz” durumdadır.
-isAuthenticated: Kolay kontrol için boolean. token varsa true, yoksa false. Protected Route’larda hızlı karar vermek için kullanılır.
-Amaç: Bu interface, context içinden dışarıya ne sunulduğunu kesin tiplerle tanımlar; başka component’ler useAuth() kullandığında bunları alacağını bilir. */
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [token, setToken] = useState<string | null>(null)
@@ -58,8 +50,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 throw new Error('Kullanıcı adı veya şifre hatalı!')
             }
 
-            const data = await response.json()
 
+            const data = await response.json()
+            console.log("login-data", data)
             // Token ve user bilgilerini kaydet
             setToken(data.accessToken)
             setUser({
