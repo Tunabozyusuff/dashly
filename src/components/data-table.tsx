@@ -7,8 +7,10 @@ import {
   TouchSensor,
   useSensor,
   useSensors,
-  type DragEndEvent,
-  type UniqueIdentifier,
+} from "@dnd-kit/core"
+import type {
+  DragEndEvent,
+  UniqueIdentifier,
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import {
@@ -33,8 +35,6 @@ import {
   IconTrendingUp,
 } from "@tabler/icons-react"
 import {
-  type ColumnDef,
-  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -42,10 +42,14 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  type Row,
-  type SortingState,
   useReactTable,
-  type VisibilityState,
+} from "@tanstack/react-table"
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  Row,
+  SortingState,
+  VisibilityState,
 } from "@tanstack/react-table"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { toast } from "sonner"
@@ -55,11 +59,11 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
-  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import type { ChartConfig } from "@/components/ui/chart"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   Drawer,

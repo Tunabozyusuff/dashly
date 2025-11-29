@@ -1,11 +1,7 @@
-import {
-  IconCreditCard,
-  IconDotsVertical,
-  IconLogout,
-  IconNotification,
-  IconUserCircle,
-} from "@tabler/icons-react"
-import { useNavigate } from "react-router-dom"
+"use client"
+
+import { Link } from "react-router-dom"
+import BoringAvatar from "boring-avatars"
 
 import {
   Avatar,
@@ -28,6 +24,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/contexts/AuthContext"
+import { IconLogout, IconUserCircle, IconCreditCard, IconNotification, IconDotsVertical } from "@tabler/icons-react"
 
 export function NavUser({
   user,
@@ -40,11 +37,9 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar()
   const { logout } = useAuth()
-  const navigate = useNavigate()
 
   const handleLogout = () => {
     logout()
-    navigate("/login")
   }
 
   return (
@@ -57,8 +52,12 @@ export function NavUser({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <BoringAvatar
+                  name={user.name}
+                  variant="beam"
+                  colors={["#ff0000", "#0000ff"]}
+                  size={32}
+                />
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -78,8 +77,12 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <BoringAvatar
+                    name={user.name}
+                    variant="beam"
+                    colors={["#ff0000", "#0000ff"]}
+                    size={32}
+                  />
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
@@ -105,9 +108,11 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout}>
-              <IconLogout />
-              Log out
+            <DropdownMenuItem asChild>
+              <Link to="/login" onClick={handleLogout} className="w-full cursor-pointer flex items-center gap-2" data-testid="logout-button">
+                <IconLogout />
+                Log out
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
